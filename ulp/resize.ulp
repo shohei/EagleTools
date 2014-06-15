@@ -1,0 +1,48 @@
+string buf;
+string Result;
+real xmax;
+real ymax;
+string xmax_str;
+string ymax_str;
+
+board(B){
+  int xarr[];
+  int yarr[];
+  int n=0;
+  B.elements(E){
+    xarr[n] = E.x;
+    yarr[n] = E.y;
+    n++;
+  }
+  sprintf(buf,"%d",B.grid.unit);
+  Result += "Grid unit: "+buf+"\n";
+  sprintf(buf,"GRID_UNIT_INCH: %d\n",GRID_UNIT_INCH);
+  Result += buf;
+
+  sort(n,xarr);
+  sort(n,yarr);
+  xmax = u2inch(xarr[n-1]);
+  ymax = u2inch(yarr[n-1]);
+  
+  sprintf(xmax_str,"%f",xmax+0.2);
+  sprintf(ymax_str,"%f",ymax+0.2);
+  Result += "Xmax: "+xmax_str+"\n"; 
+  Result += "Ymax: "+ymax_str+"\n"; 
+}
+
+string cmd;
+cmd += "DISPLAY None ;\n";
+cmd += "DISPLAY Dimension;\n";
+cmd += "GROUP ALL;\n";
+cmd += "DELETE (C>0 0);\n";
+cmd += "LAYER 20;\n";
+cmd += "WIRE 0 (0 0) (0 "+ymax_str+") ;\n";
+cmd += "WIRE 0 (0 "+ymax_str+") ("+xmax_str+" "+ymax_str+") ;\n";
+cmd += "WIRE 0 ("+xmax_str+" "+ymax_str+") ("+xmax_str+" 0) ;\n";
+cmd += "WIRE 0 ("+xmax_str+" 0) (0 0) ;\n";
+cmd += "DISPLAY Top Bottom Pads Vias Unrouted Dimension tPlace bPlace;\n"; 
+cmd += "DISPLAY Top Bottom Pads Vias Unrouted Dimension tPlace bPlace tOrigins bOrigins tNames bNames Holes Milling ;\n"; 
+Result += "Execute command: \n";
+Result += cmd;
+//dlgMessageBox(Result);
+exit(cmd);

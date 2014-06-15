@@ -1,0 +1,34 @@
+string Results;
+string buf="";
+string xstring;
+string ystring;
+board(B){
+  int xarr[];
+  int yarr[];
+  int n=0;
+  B.elements(E){
+    Results += "----------\n";
+    Results += "E name: "+E.name + "\n";
+    Results += "E value: "+E.value + "\n";
+    sprintf(buf,"E x: %d \n",E.x);
+    Results += buf;
+    xarr[n] = E.x;
+    sprintf(buf,"E y: %d \n",E.y);
+    Results += buf;
+    yarr[n] = E.y;
+    n++;
+  }
+  for(int i=0;i<n;i++){
+    sprintf(buf,"%d\n",xarr[i]);
+    xstring += buf;
+    sprintf(buf,"%d\n",yarr[i]);
+    ystring += buf;
+  }
+}
+Results += "----------\n";
+Results += "X position\n";
+Results += xstring;
+Results += "----------\n";
+Results += "Y position\n";
+Results += ystring;
+dlgMessageBox(Results);

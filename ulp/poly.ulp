@@ -1,0 +1,40 @@
+string buf;
+string Result;
+real xmax;
+real ymax;
+string xmax_str;
+string ymax_str;
+
+board(B){
+  int xarr[];
+  int yarr[];
+  int n=0;
+
+  B.wires(W) {
+      if (W.layer == 20){
+        xarr[n] = W.x1;
+        xarr[n++] = W.x2;
+        yarr[n] = W.y1;
+        yarr[n++] = W.y2;
+        n++;
+      }
+  }
+  sort(n,xarr);
+  sort(n,yarr);
+  xmax = u2inch(xarr[n-1]);
+  ymax = u2inch(yarr[n-1]);
+  
+  sprintf(xmax_str,"%f",xmax);
+  sprintf(ymax_str,"%f",ymax);
+  Result += "Xmax: "+xmax_str+"\n"; 
+  Result += "Ymax: "+ymax_str+"\n"; 
+}
+
+string cmd;
+cmd += "POLYGON;\n";
+cmd += "LAYER Bottom;\n";
+cmd += "POLYGON GND 0.016 (0 0) ("+xmax_str+" 0) ("+xmax_str+" "+ymax_str+") (0 "+ymax_str+")(0 0) ;\n";
+Result += "Execute command: \n";
+Result += cmd;
+//dlgMessageBox(Result);
+exit(cmd);

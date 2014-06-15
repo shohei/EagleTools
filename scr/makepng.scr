@@ -1,0 +1,24 @@
+#Create folder for output
+RUN mkdir-desktop
+
+#Make top side png image
+DISPLAY ALL 
+RATSNEST
+DISPLAY None 
+DISPLAY Top Pads Vias
+EXPORT IMAGE ~/Desktop/eagle_png/top.png MONOCHROME 2000
+DISPLAY Bottom Unrouted Dimension tPlace bPlace 
+
+#Make bottom side png image
+DISPLAY ALL 
+RATSNEST
+DISPLAY None
+DISPLAY Bottom Pads Vias
+EXPORT IMAGE ~/Desktop/eagle_png/bottom.png MONOCHROME 2000
+DISPLAY Top Unrouted Dimension tPlace bPlace
+
+#Invert PNG image for etching (no need for fab modules)
+#Flip PNG image horizontally for etching (if necessary)
+RUN invert-and-flip-png
+
+
