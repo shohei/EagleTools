@@ -1,3 +1,4 @@
+// Developed by Shohei Aoki, 2014
 string Results;
 string buf="";
 string xstring;

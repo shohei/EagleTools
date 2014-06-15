@@ -1,3 +1,4 @@
+//Developed by Shohei Aoki, 2014
 int res1 = system("/usr/local/bin/convert ~/Desktop/eagle_png/top.png -negate ~/Desktop/eagle_png/top-invert.png");
 int res2 = system("/usr/local/bin/convert ~/Desktop/eagle_png/bottom.png -negate ~/Desktop/eagle_png/bottom-invert.png");
 int res3 = system("/usr/local/bin/convert ~/Desktop/eagle_png/top-invert.png -flop ~/Desktop/eagle_png/top-invert-flop.png");

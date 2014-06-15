@@ -1,0 +1,41 @@
+//Developed by Shohei Aoki, 2014
+string currentdir;
+string fname;
+string template;
+string cmd="";
+string fileName="";
+template = "~/Documents/eagle/AVR_template/template.sch";
+if (schematic)
+   schematic(S) {
+     currentdir = filedir(S.name);
+     fname = filename(S.name);
+}
+int Result = dlgDialog("choose template directory"){
+      dlgVBoxLayout{
+        dlgLabel("<b>Template file</b>");
+        dlgStretch(0);
+        dlgLabel(template,1);
+          dlgHBoxLayout{
+              dlgPushButton("+&OK") dlgAccept();
+              dlgStretch(0);
+              dlgSpacing(25);
+              dlgPushButton("-Cancel") dlgReject();
+              dlgStretch(1);
+          }
+        dlgHBoxLayout{
+            dlgPushButton("change") {
+                template = dlgFileOpen("Select a file","");
+                dlgRedisplay();
+            }
+            dlgStretch(1);
+        }
+     }
+};
+if (Result == 1){
+  cmd += "edit "+template+";\n";
+  cmd += "group all;\n";
+  cmd += "cut ( C > 0 0 );\n";
+  cmd += "edit "+currentdir+" "+fname+";\n";
+  cmd += "paste;\n";
+}
+exit(cmd);

@@ -1,3 +1,4 @@
+//Developed by Shohei Aoki, 2014
 string buf;
 string Result;
 real xmax;
