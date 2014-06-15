@@ -17,6 +17,9 @@ Execute
 script makepng
 ```
 ```
+run template 
+```
+```
 run getelem 
 ```
 ```
